@@ -1,22 +1,95 @@
 import random
 
 
-def generate_question():
+def generate_question_1():
     operations = ['+', '-', '*', '/']
-    num1 = random.randint(1, 20)
-    num2 = random.randint(1, 20)
+    num1 = random.randint(1, 10)
+    num2 = random.randint(1, 10)
     op = random.choice(operations)
 
     # don't divide by zero and keep the division clean
     if op == '/':
         num1 = num1 * num2
 
-    question = f"{num1} {op} {num2}"
-    correct_answer = eval(question)
+    question1 = f"{num1} {op} {num2}"
+    correct_answer = eval(question1)
     if op == '/':
         correct_answer = round(correct_answer, 2)
 
-    return question, correct_answer
+    return question1, correct_answer
+
+
+def generate_question_2():
+    operations = ['+', '-', '*', '/']
+    num3 = random.randint(1, 50)
+    num4 = random.randint(1, 50)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num3 * num4
+
+    question2 = f"{num3} {op} {num4}"
+    correct_answer = eval(question2)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question2, correct_answer
+
+
+def generate_question_3():
+    operations = ['+', '-', '*', '/']
+    num5 = random.randint(50, 100)
+    num6 = random.randint(50, 100)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num5 * num6
+
+    question3 = f"{num5} {op} {num6}"
+    correct_answer = eval(question3)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question3, correct_answer
+
+
+def generate_question_4():
+    operations = ['+', '-', '*', '/']
+    num7 = random.randint(100, 500)
+    num8 = random.randint(100, 500)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num7 * num8
+
+    question4 = f"{num7} {op} {num8}"
+    correct_answer = eval(question4)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question4, correct_answer
+
+
+def generate_question_5():
+    operations = ['+', '-', '*', '/']
+    num9 = random.randint(500, 1000)
+    num10 = random.randint(500, 1000)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num9 * num10
+
+    question5 = f"{num9} {op} {num10}"
+    correct_answer = eval(question5)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question5, correct_answer
+
 
 
 # yes no checker
@@ -112,8 +185,6 @@ def level_checker(question):
             return "level 4"
         if responses == "5" or responses == "level 5":
             return "level 5"
-        else:
-                print("Choose what level you want from 1 easy to 5 insane")
 
 
 
@@ -151,10 +222,35 @@ def main():
 
     history = []
     correct_count = 0
-
+    if want_instructions == "1":
+        mode = "level 1"
     for i in range(1, num_rounds + 1):
-        question, answer = generate_question()
-        print(f"\nQuestion {i}: What is {question}?")
+        question1, answer = generate_question_1()
+        print(f"\nQuestion1 {i}: What is {question1}?")
+    else:
+        if want_instructions == "2":
+            mode = "level 2"
+        for i in range(1, num_rounds + 1):
+            question2, answer = generate_question_2()
+            print(f"\nQuestion2 {i}: What is {question2}?")
+        else:
+            if want_instructions == "3":
+                mode = "level 3"
+            for i in range(1, num_rounds + 1):
+                question3, answer = generate_question_3()
+                print(f"\nQuestion3 {i}: What is {question3}?")
+            else:
+                if want_instructions == "4":
+                    mode = "level 4"
+                for i in range(1, num_rounds + 1):
+                    question4, answer = generate_question_4()
+                    print(f"\nQuestion4 {i}: What is {question4}?")
+                else:
+                    if want_instructions == "5":
+                        mode = "level 5"
+    for i in range(1, num_rounds + 1):
+        question5, answer = generate_question_5()
+        print(f"\nQuestion5 {i}: What is {question5}?")
 
         try:
             user_input = input("Your answer: ")

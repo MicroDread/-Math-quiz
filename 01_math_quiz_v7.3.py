@@ -1,22 +1,133 @@
 import random
 
 
-def generate_question():
+def generate_question_1():
     operations = ['+', '-', '*', '/']
-    num1 = random.randint(1, 20)
-    num2 = random.randint(1, 20)
+    num1 = random.randint(1, 10)
+    num2 = random.randint(1, 10)
     op = random.choice(operations)
 
     # don't divide by zero and keep the division clean
     if op == '/':
         num1 = num1 * num2
 
-    question = f"{num1} {op} {num2}"
-    correct_answer = eval(question)
+    question1 = f"{num1} {op} {num2}"
+    correct_answer = eval(question1)
     if op == '/':
         correct_answer = round(correct_answer, 2)
 
-    return question, correct_answer
+    return question1, correct_answer
+
+
+def generate_question_2():
+    operations = ['+', '-', '*', '/']
+    num3 = random.randint(1, 50)
+    num4 = random.randint(1, 50)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num3 * num4
+
+    question2 = f"{num3} {op} {num4}"
+    correct_answer = eval(question2)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question2, correct_answer
+
+
+def generate_question_3():
+    operations = ['+', '-', '*', '/']
+    num5 = random.randint(50, 100)
+    num6 = random.randint(50, 100)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num5 * num6
+
+    question3 = f"{num5} {op} {num6}"
+    correct_answer = eval(question3)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question3, correct_answer
+
+
+def generate_question_4():
+    operations = ['+', '-', '*', '/']
+    num7 = random.randint(100, 500)
+    num8 = random.randint(100, 500)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num7 * num8
+
+    question4 = f"{num7} {op} {num8}"
+    correct_answer = eval(question4)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question4, correct_answer
+
+
+def generate_question_5():
+    operations = ['+', '-', '*', '/']
+    num9 = random.randint(500, 1000)
+    num10 = random.randint(500, 1000)
+    op = random.choice(operations)
+
+    # don't divide by zero and keep the division clean
+    if op == '/':
+        num1 = num9 * num10
+
+    question5 = f"{num9} {op} {num10}"
+    correct_answer = eval(question5)
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
+
+    return question5, correct_answer
+
+
+def run_quiz(level_name, generate_question_func, num_rounds):
+    history = []
+    correct_count = 0
+
+    print(f"\n📘 Starting Level: {level_name}")
+    for i in range(1, num_rounds + 1):
+        question, answer = generate_question_func()
+        print(f"\nQuestion {i}: What is {question}?")
+
+        try:
+            user_input = input("Your answer: ")
+            user_answer = float(user_input)
+
+            if round(user_answer, 2) == round(answer, 2):
+                print("✅ Correct!")
+                correct = True
+                correct_count += 1
+            else:
+                print(f"❌ Incorrect. The correct answer was {answer}.")
+                correct = False
+
+        except ValueError:
+            print(f"❌ Invalid input. The correct answer was {answer}.")
+            correct = False
+            user_answer = user_input
+
+        history.append({
+            "number": i,
+            "question": question,
+            "correct_answer": answer,
+            "user_answer": user_answer,
+            "correct": correct
+        })
+
+    print(f"\n🎯 You got {correct_count} out of {num_rounds} correct.")
+    return history
+
 
 
 # yes no checker
@@ -112,9 +223,6 @@ def level_checker(question):
             return "level 4"
         if responses == "5" or responses == "level 5":
             return "level 5"
-        else:
-                print("Choose what level you want from 1 easy to 5 insane")
-
 
 
 def main():
@@ -130,6 +238,15 @@ def main():
     else:
         if want_instructions == "no":
             print("you said no")
+
+
+    # tells the  user the levels
+    print("1. Level 1 (Easy)")
+    print("2. Level 2 (Medium)")
+    print("3. Level 3 (Hard)")
+    print("4. Level 4 (Very Hard)")
+    print("5. Level 5 (Extreme)")
+
 
     # ask the user which difficulty they want
     want_instructions = level_checker("Please choose the level you want ")
@@ -148,39 +265,29 @@ def main():
         except ValueError:
             print("Please enter a valid number.")
 
+        history = []
+        correct_count = 0
 
-    history = []
-    correct_count = 0
 
-    for i in range(1, num_rounds + 1):
-        question, answer = generate_question()
-        print(f"\nQuestion {i}: What is {question}?")
+        level = input("Enter level number (1-5): ")
 
-        try:
-            user_input = input("Your answer: ")
-            user_answer = float(user_input)
+        if level == "1":
+            run_quiz("Level 1", generate_question_1, num_rounds)
+        elif level == "2":
+            run_quiz("Level 2", generate_question_2, num_rounds)
+        elif level == "3":
+            run_quiz("Level 3", generate_question_3, num_rounds)
+        elif level == "4":
+            run_quiz("Level 4", generate_question_4, num_rounds)
+        elif level == "5":
+            run_quiz("Level 5", generate_question_5, num_rounds)
+        else:
+            print("❌ Invalid level selected.")
 
-            if round(user_answer, 2) == round(answer, 2):
-                print("✅ Correct!")
-                correct = True
-                correct_count += 1
-            else:
-                print(f"❌ Incorrect. The correct answer was {answer}.")
-                correct = False
+    # Call main to start the quiz
+    main()
 
-        except ValueError:
-            print(f"❌ Invalid input. The correct answer was {answer}.")
-            correct = False
-            user_answer = user_input
-
-        # keep original text for the history
-        history.append({
-            "number": i,
-            "question": question,
-            "correct_answer": answer,
-            "user_answer": user_answer,
-            "correct": correct
-        })
+    print(f"\n🎯 Total correct answers: {correct_count} out of {num_rounds * 5}")
 
     # Show results
     print("\n📜 Quiz Summary:")
