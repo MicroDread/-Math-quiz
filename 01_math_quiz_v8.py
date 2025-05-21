@@ -223,6 +223,8 @@ def level_checker(question):
             return "level 4"
         if responses == "5" or responses == "level 5":
             return "level 5"
+        else:
+            print("❌ Invalid level selected.")
 
 
 def main():
@@ -232,6 +234,9 @@ def main():
 
     if want_instructions == "yes":
         instructions()
+    else:
+        if want_instructions == "no":
+            print("You said no")
 
     # Shows the user the levels
     print("\nChoose a level:")
@@ -246,7 +251,7 @@ def main():
     # Ask user for number of rounds
     num_rounds = int_check("How many rounds would you like? Push <enter> for infinite mode: ")
     if num_rounds == "infinite":
-        num_rounds = 100  # or whatever you want for infinite
+        num_rounds = 100  # or anything number you want for infinite
 
     # Choose level and run the correct level quiz
     if level == "level 1":
@@ -259,9 +264,6 @@ def main():
         history = run_quiz("Level 4", generate_question_4, num_rounds)
     elif level == "level 5":
         history = run_quiz("Level 5", generate_question_5, num_rounds)
-    else:
-        print("❌ Invalid level selected.")
-        return
 
     # Shows results
     correct_count = sum(1 for record in history if record["correct"])
