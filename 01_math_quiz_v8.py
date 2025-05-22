@@ -1,6 +1,6 @@
 import random
 
-
+# random number quiz generator
 def generate_question_1():
     operations = ['+', '-', '*', '/']
     num1 = random.randint(1, 10)
@@ -156,7 +156,6 @@ Then choose the number of rounds (or infinite mode)
 Good Luck!
     ''')
 
-
 # Check that users has entered a valid
 # option based on a list
 def string_checker(question, valid_ans=("yes", "no")):
@@ -239,7 +238,6 @@ def main():
             print("You said no")
 
     # Shows the user the levels
-    print("\nChoose a level:")
     print("1. Level 1 (Easy)")
     print("2. Level 2 (Medium)")
     print("3. Level 3 (Hard)")
@@ -251,7 +249,7 @@ def main():
     # Ask user for number of rounds
     num_rounds = int_check("How many rounds would you like? Push <enter> for infinite mode: ")
     if num_rounds == "infinite":
-        num_rounds = 100  # or anything number you want for infinite
+        num_rounds = 999  # or any number you want for infinite
 
     # Choose level and run the correct level quiz
     if level == "level 1":
@@ -276,6 +274,7 @@ def main():
 
     percentage = (correct_count / num_rounds) * 100
     print(f"\n🎯 You got {correct_count} out of {num_rounds} correct ({percentage:.2f}%)")
+    print("thank you for playing, quiz by Kuzi")
 
 if __name__ == "__main__":
     main()
