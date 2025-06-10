@@ -1,5 +1,3 @@
-print(
-    f"Q{question['number']}: {user_answere['question']} = {answer['correct_answer']} | Your answer: {record['user_answer']} {result}")
 import random
 
 # yes no checker
@@ -27,24 +25,18 @@ def run_quiz(generate_question_func, num_rounds):
         question, answer = generate_question_func()
         print(f"\nQuestion {i}: What is {question}?")
 
-        try:
-            user_input = input("Your answer: ")
-            user_answer = float(user_input)
+        user_answer = int_check("Your answer: ")
 
-            if round(user_answer, 2) == round(answer, 2):
-                print("✅ Correct!")
-                correct = True
-                correct_count += 1
-            else:
-                print(f"❌ Incorrect. The correct answer was {answer}.")
-                correct = False
+        if user_answer == answer:
+            print("✅ Correct!")
+            history.append(f"Question {i}: {question} = {answer}, you were Correct!")
+            correct_count += 1
+        else:
+            print(f"❌ Incorrect. The correct answer was {answer}.")
+            history.append(f"Question {i}: {question} = {answer}, you wrote {user_answer}, Incorrect")
 
-        except ValueError:
-            print(f"❌ Invalid input. The correct answer was {answer}.")
-            correct = False
-            user_answer = user_input
 
-        history.append((question, user_answer, correct))
+
 
     print(f"\n🎯 You got {correct_count} out of {num_rounds} correct.")
     return history
@@ -89,21 +81,22 @@ def generate_question():
     num1 = random.randint(1, 100)
     num2 = random.randint(1, 100)
     op = random.choice(operators)
+    correct_answer = 0
 
-    # don't divide by zero and keep the division clean
+    # keep the division clean
     if op == '/':
+        correct_answer = num1
         num1 = num1 * num2
 
     question = f"{num1} {op} {num2}"
-    correct_answer = 0
+
     if op == '+':
         correct_answer = num1 + num2
     if op == '-':
         correct_answer = num1 - num2
     if op == '*':
         correct_answer = num1 * num2
-    if op == '/':
-        correct_answer = num1 / num2
+
 
     return question, correct_answer
 
@@ -129,20 +122,17 @@ if num_rounds == "infinite":
     num_rounds = 100
 
 if q_num < num_rounds:
-    question, answer = generate_question()
+    q_history = run_quiz(generate_question, num_rounds)
 
     # todo get user input (int checker), evaluate, store history
 
-    # **Run the quiz here after the TODO**
-    history = run_quiz(generate_question, num_rounds)
 
-want_instructions = yes_no("do you want to see your history of the quiz")
-if want_instructions == "yes":
-
-    print("📜 Quiz Summary:")
-    for record in history:
-        status = "✔️" if record["correct"] else "❌"
-        print(f"Q{record['number']}: {record['question']} = {record['correct_answer']} | Your answer: {record['user_answer']} {status}")
+want_hist = yes_no("do you want to see your history of the quiz")
+if want_hist == "yes":
+    for item in q_history:
+        print(item)
 else:
-        print("you said no.")
+    print("good bye")
+
+
 

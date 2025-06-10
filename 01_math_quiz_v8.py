@@ -249,7 +249,8 @@ def main():
     # Ask user for number of rounds
     num_rounds = int_check("How many rounds would you like? Push <enter> for infinite mode: ")
     if num_rounds == "infinite":
-        num_rounds = 999  # or any number you want for infinite
+        num_rounds = 999  # or any number
+        # for infinite
 
     # Choose level and run the correct level quiz
     if level == "level 1":

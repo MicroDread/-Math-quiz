@@ -120,7 +120,11 @@ def main():
             "correct": correct
         })
 
-    # Show results
+
+    # Shows results
+    correct_count = sum(1 for record in history if record["correct"])
+    print(f"\n🎯 Total correct answers: {correct_count} out of {num_rounds}")
+
     print("\n📜 Quiz Summary:")
     for record in history:
         status = "✔️" if record["correct"] else "❌"
