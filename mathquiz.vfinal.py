@@ -20,7 +20,7 @@ def run_quiz(generate_question_func, num_rounds):
     history = []
     correct_count = 0
 
-    print(f"\n Math quiz: {num_rounds} questions ")
+    print(f"\n Math quiz: {mode} questions ")
     for i in range(1, num_rounds + 1):
         question, answer = generate_question_func()
         print(f"\nQuestion {i}: What is {question}?")
@@ -80,6 +80,8 @@ def generate_question():
 
     num1 = random.randint(1, 100)
     num2 = random.randint(1, 100)
+    num3 = random.randint(50, 100)
+    num4 = random.randint(1, 50)
     op = random.choice(operators)
     correct_answer = 0
 
@@ -87,13 +89,15 @@ def generate_question():
     if op == '/':
         correct_answer = num1
         num1 = num1 * num2
+    if op == '/':
+        correct_answer = round(correct_answer, 2)
 
     question = f"{num1} {op} {num2}"
 
     if op == '+':
         correct_answer = num1 + num2
     if op == '-':
-        correct_answer = num1 - num2
+        correct_answer = num4 - num3
     if op == '*':
         correct_answer = num1 * num2
 
@@ -120,6 +124,9 @@ num_rounds = int_check("How many questions would you like? Push <enter> for infi
 if num_rounds == "infinite":
     mode = "infinite"
     num_rounds = 100
+else:
+    mode = num_rounds
+
 
 if q_num < num_rounds:
     q_history = run_quiz(generate_question, num_rounds)
@@ -127,7 +134,7 @@ if q_num < num_rounds:
     # todo get user input (int checker), evaluate, store history
 
 
-want_hist = yes_no("do you want to see your history of the quiz")
+want_hist = yes_no("do you want to see your history of the quiz ")
 if want_hist == "yes":
     for item in q_history:
         print(item)
